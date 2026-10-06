@@ -1,0 +1,4 @@
+# The website deploy doesn't need the Python backend (deployed separately from backend/)
+backend/
+.env*
+*.db

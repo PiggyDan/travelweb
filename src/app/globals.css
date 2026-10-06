@@ -1,26 +1,296 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Night mode is class-driven (set on <html> by the theme toggle). */
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/*
+ * Eternal Sky design tokens.
+ *   sky      — deep navy of the high steppe sky
+ *   sand     — warm Gobi beige
+ *   steppe   — muted grassland green
+ *   felt     — ivory of ger felt (page background)
+ *   charcoal — dark neutral for text
+ *   copper   — restrained accent (use 600 on light, 300/400 on dark)
+ */
+@theme {
+  --color-sky-50: #eef2f7;
+  --color-sky-100: #d9e2ec;
+  --color-sky-200: #b3c4d7;
+  --color-sky-300: #8aa3bf;
+  --color-sky-400: #5f7fa3;
+  --color-sky-500: #3f6187;
+  --color-sky-600: #2e4b6d;
+  --color-sky-700: #223a56;
+  --color-sky-800: #182b41;
+  --color-sky-900: #111f30;
+  --color-sky-950: #0b1522;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-sand-50: #faf6ef;
+  --color-sand-100: #f3eadb;
+  --color-sand-200: #e8d9bf;
+  --color-sand-300: #dac29c;
+  --color-sand-400: #c9a878;
+  --color-sand-500: #b48d5a;
+  --color-sand-600: #977246;
+  --color-sand-700: #775837;
+
+  --color-steppe-100: #e4e7da;
+  --color-steppe-200: #c9cfb5;
+  --color-steppe-400: #8a956a;
+  --color-steppe-500: #6e7a52;
+  --color-steppe-600: #576141;
+  --color-steppe-700: #444c34;
+  --color-steppe-800: #33392a;
+
+  --color-felt-50: #fdfbf7;
+  --color-felt-100: #f8f4ec;
+  --color-felt-200: #f0e9dc;
+
+  --color-charcoal-400: #8a8880;
+  --color-charcoal-500: #6b6962;
+  --color-charcoal-600: #4f4e49;
+  --color-charcoal-700: #383733;
+  --color-charcoal-800: #262624;
+  --color-charcoal-900: #1a1a19;
+
+  --color-copper-300: #e2b98c;
+  --color-copper-400: #d19a62;
+  --color-copper-500: #b7793f;
+  --color-copper-600: #96602f;
+  --color-copper-700: #774b25;
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-scroll-cue: scroll-cue 2.4s var(--ease-soft) infinite;
+  --animate-marquee: marquee 48s linear infinite;
+  --animate-snow-near: snow 9s linear infinite;
+  --animate-snow-mid: snow 14s linear infinite;
+  --animate-snow-far: snow 22s linear infinite;
+
+  /* Moves exactly whole tiles (see .snow-layer) so the loop is seamless. */
+  @keyframes snow {
+    to {
+      transform: translate3d(var(--snow-drift), var(--snow-fall), 0);
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @keyframes scroll-cue {
+    0% {
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+    45% {
+      transform: scaleY(1);
+      transform-origin: top;
+    }
+    55% {
+      transform: scaleY(1);
+      transform-origin: bottom;
+    }
+    100% {
+      transform: scaleY(0);
+      transform-origin: bottom;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-felt-100);
+    color: var(--color-charcoal-900);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--color-copper-300);
+    color: var(--color-sky-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-copper-500);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@layer components {
+  /* Small uppercase label above headings. */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  /* Falling snow (home hero). Each layer extends one fall-distance above the
+     frame and slides down by a whole number of tiles, so it loops seamlessly. */
+  .snow-layer {
+    --snow-tile-w: 347px;
+    --snow-tile-h: 293px;
+    --snow-fall: calc(var(--snow-tile-h) * 4);
+    --snow-drift: var(--snow-tile-w);
+    position: absolute;
+    inset: calc(var(--snow-fall) * -1) 0 0 calc(var(--snow-drift) * -1);
+    /* Irregularly placed flakes of mixed size, with odd tile sizes per layer, so no grid shows. */
+    background-image:
+      radial-gradient(2.5px 2.5px at 7% 12%, rgb(255 255 255 / 0.9), transparent 70%),
+      radial-gradient(1.5px 1.5px at 31% 47%, rgb(255 255 255 / 0.7), transparent 70%),
+      radial-gradient(3px 3px at 58% 8%, rgb(255 255 255 / 0.85), transparent 70%),
+      radial-gradient(2px 2px at 83% 33%, rgb(255 255 255 / 0.75), transparent 70%),
+      radial-gradient(1.5px 1.5px at 19% 79%, rgb(255 255 255 / 0.65), transparent 70%),
+      radial-gradient(2.5px 2.5px at 46% 66%, rgb(255 255 255 / 0.8), transparent 70%),
+      radial-gradient(2px 2px at 71% 91%, rgb(255 255 255 / 0.7), transparent 70%),
+      radial-gradient(1.5px 1.5px at 94% 58%, rgb(255 255 255 / 0.6), transparent 70%);
+    background-size: var(--snow-tile-w) var(--snow-tile-h);
+    will-change: transform;
+  }
+  .snow-layer--mid {
+    --snow-tile-w: 233px;
+    --snow-tile-h: 211px;
+    opacity: 0.7;
+    filter: blur(0.5px);
+  }
+  .snow-layer--far {
+    --snow-tile-w: 157px;
+    --snow-tile-h: 139px;
+    opacity: 0.45;
+    filter: blur(1px);
+  }
+
+  /* Long-form copy. */
+  .prose-editorial p + p {
+    margin-top: 1.25em;
+  }
+}
+
+/*
+ * Night mode.
+ * The deep-sky sections (heroes, footer, booking panel) are already dark and
+ * stay as they are. Only the ivory/sand "day" surfaces and the text that sits
+ * on them are re-mapped. `felt` and `sky-950` double as text-on-dark and
+ * surface colours, so they're overridden per utility rather than per token.
+ */
+.dark {
+  color-scheme: dark;
+
+  --color-charcoal-400: #808a97;
+  --color-charcoal-500: #9aa4b1;
+  --color-charcoal-600: #b2bac5;
+  --color-charcoal-700: #c7ced7;
+  --color-charcoal-800: #dce1e7;
+  --color-charcoal-900: #eceff3;
+
+  --color-sand-50: #0f1a28;
+  --color-sand-100: #142233;
+  --color-sand-200: #22344a;
+  --color-sand-300: #2c4058;
+  --color-sand-400: #3d546f;
+  --color-sand-500: #557090;
+
+  --night-page: #0d1725;
+  --night-surface: #132032;
+  --night-raised: #18283c;
+  --night-heading: #eef2f7;
+
+  /* Day surfaces → night surfaces. */
+  & body {
+    background-color: var(--night-page);
+  }
+  & .bg-felt-50,
+  & .bg-white:not(.animate-scroll-cue) {
+    background-color: var(--night-surface);
+  }
+  & .bg-felt-50\/95 {
+    background-color: color-mix(in oklab, var(--night-surface) 95%, transparent);
+  }
+  & .bg-felt-100\/95 {
+    background-color: color-mix(in oklab, var(--night-page) 95%, transparent);
+  }
+  & .bg-felt-200 {
+    background-color: var(--night-raised);
+  }
+  & .bg-steppe-100 {
+    background-color: #1f2a1c;
+  }
+  & .bg-sky-100 {
+    background-color: #1c2d44;
+  }
+  & .hover\:bg-sky-950\/5:hover,
+  & .bg-sky-950\/5 {
+    background-color: rgb(255 255 255 / 0.06);
+  }
+  & .hover\:bg-white:hover:not(.bg-felt-100) {
+    background-color: var(--night-raised);
+  }
+
+  /* Navy text and lines on day surfaces → light. Light buttons keep navy text. */
+  & .text-sky-950:not(.bg-felt-100),
+  & .hover\:text-sky-950:hover {
+    color: var(--night-heading);
+  }
+  & .border-sky-950,
+  & .hover\:border-sky-950:hover {
+    border-color: var(--color-sky-200);
+  }
+  & .border-sky-950\/30 {
+    border-color: rgb(238 242 247 / 0.3);
+  }
+  & .focus\:border-sky-700:focus {
+    border-color: var(--color-sky-300);
+  }
+
+  /* Accent text tuned for contrast on dark. */
+  & .text-copper-600,
+  & .text-copper-700 {
+    color: var(--color-copper-400);
+  }
+  & .text-sky-800 {
+    color: var(--color-sky-200);
+  }
+  & .text-sand-700 {
+    color: #dac29c;
+  }
+  & .text-sand-200 {
+    color: #e8d9bf;
+  }
+  & .text-steppe-500,
+  & .text-steppe-600,
+  & .text-steppe-700 {
+    color: #a7b289;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

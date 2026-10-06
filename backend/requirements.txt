@@ -1,0 +1,14 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30
+SQLAlchemy>=2.0.30,<2.1
+psycopg[binary]>=3.2  # Postgres driver for production DATABASE_URL
+pydantic>=2.8
+pydantic-settings>=2.4
+email-validator>=2.2
+PyJWT>=2.9
+argon2-cffi>=23.1
+anthropic>=1.11,<2  # chat assistant (Claude)
+
+# Development
+pytest>=8
+httpx>=0.27  # required by FastAPI's TestClient
