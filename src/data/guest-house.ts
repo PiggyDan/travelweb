@@ -8,10 +8,10 @@ import { images } from "./images";
  * actual property exist in the repository yet).
  */
 export const guestHouse: GuestHouse = {
-  name: "Eternal Sky Guest House",
+  name: "Dolgion’s Tour Guest House",
   tagline: "A calm place to land, and to come back to.",
   intro: [
-    "Our guest house in central Ulaanbaatar is where most Eternal Sky journeys begin and end. Arrive after a long flight to a quiet room, a hot shower and a team that already knows your plans.",
+    "Our guest house in central Ulaanbaatar is where most Dolgion’s Tour journeys begin and end. Arrive after a long flight to a quiet room, a hot shower and a team that already knows your plans.",
     "Before your journey, use it to rest, meet your guide and leave luggage you will not need on the road. Afterwards, come back to a proper bed, laundry and a final evening in the city.",
   ],
   address: "Central Ulaanbaatar, Mongolia (exact address to be confirmed)",

@@ -15,7 +15,6 @@ const socialLinks = [
 ];
 
 export function SiteFooter({ groups }: { groups: readonly NavGroup[] }) {
-  const year = new Date().getFullYear();
 
   return (
     <footer className="bg-sky-950 text-felt-50">
@@ -82,7 +81,7 @@ export function SiteFooter({ groups }: { groups: readonly NavGroup[] }) {
               Photo credits
             </LocaleLink>
             <p>
-              © {year} {siteConfig.name}. All rights reserved.
+              Powered by Daniel Knight
             </p>
           </div>
         </div>

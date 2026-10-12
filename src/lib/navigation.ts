@@ -14,12 +14,13 @@ export const mainNavigation: readonly NavItem[] = [
   { label: "Destinations", href: routes.destinations },
   { label: "Tours", href: routes.tours },
   { label: "Experiences", href: routes.experiences },
+  { label: "Hunting & Shooting", href: routes.hunting },
   { label: "Guest House", href: routes.guestHouse },
-  { label: "Travel Info", href: routes.travelInformation },
   { label: "About", href: routes.about },
 ];
 
 export const secondaryNavigation: readonly NavItem[] = [
+  { label: "Travel Info", href: routes.travelInformation },
   { label: "Festivals", href: routes.festivals },
   { label: "Gallery", href: routes.gallery },
   { label: "Journal", href: routes.journal },
@@ -41,6 +42,7 @@ export const footerNavigation: readonly NavGroup[] = [
   {
     title: "Discover",
     items: [
+      { label: "Hunting & Shooting", href: routes.hunting },
       { label: "About", href: routes.about },
       { label: "Guest House", href: routes.guestHouse },
       { label: "Festivals", href: routes.festivals },

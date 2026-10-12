@@ -5,7 +5,7 @@ import "../globals.css";
 
 /** Root layout for the staff area. Separate from the public site: no header, footer, chat bubble or locale. */
 export const metadata: Metadata = {
-  title: { default: "Admin", template: "%s · Eternal Sky admin" },
+  title: { default: "Admin", template: "%s · Dolgion’s Tour admin" },
   robots: { index: false, follow: false },
 };
 

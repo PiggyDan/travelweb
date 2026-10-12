@@ -2,7 +2,7 @@ import type { BrandPillar, FeaturedStory } from "@/types/content";
 import { images } from "./images";
 
 /**
- * Brand storytelling content (Why Eternal Sky, featured story, about page).
+ * Brand storytelling content (Why Dolgion’s Tour, featured story, about page).
  * MOCK DATA — read only through `services/content-service.ts`.
  */
 

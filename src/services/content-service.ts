@@ -87,7 +87,7 @@ export async function getLegalDocument(id: LegalDocument["id"]): Promise<LegalDo
 
 /** Every registered photo with attribution, for the credits list. */
 export async function getImageCredits(): Promise<ImageAsset[]> {
-  return Object.values(images).filter((image) => image.credit);
+  return Object.values(images).filter((image) => "credit" in image && image.credit);
 }
 
 /**

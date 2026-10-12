@@ -45,7 +45,7 @@ export function HeroContent() {
         custom={0.6}
         className="mt-8 max-w-xl text-base leading-relaxed text-sky-50/90 sm:text-lg"
       >
-        Eternal Sky Tour crafts unhurried journeys through deserts, mountains and open steppe —
+        Dolgion’s Tour crafts unhurried journeys through deserts, mountains and open steppe —
         guided by Mongolians, welcomed by nomadic families, and shaped entirely around you.
       </motion.p>
       <motion.div

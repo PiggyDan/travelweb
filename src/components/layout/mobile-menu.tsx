@@ -76,7 +76,7 @@ export function MobileMenu({ open, onClose, primary, secondary, isActive }: Mobi
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-sky-950 text-felt-50 lg:hidden"
+          className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-sky-950 text-felt-50 xl:hidden"
         >
           <div className="flex h-20 shrink-0 items-center justify-between px-5 sm:px-8">
             <Logo onClick={onClose} />

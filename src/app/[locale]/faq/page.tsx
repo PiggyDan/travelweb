@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/faq">): 
     locale,
     path: routes.faq,
     title: "Frequently Asked Questions",
-    description: "Answers about planning, travelling and booking a journey in Mongolia with Eternal Sky Tour.",
+    description: "Answers about planning, travelling and booking a journey in Mongolia with Dolgion’s Tour.",
   });
 }
 

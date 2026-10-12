@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/guest-ho
   return buildPageMetadata({
     locale,
     path: routes.guestHouse,
-    title: "Eternal Sky Guest House, Ulaanbaatar",
+    title: "Dolgion’s Tour Guest House, Ulaanbaatar",
     description:
       "Quiet rooms in central Ulaanbaatar for travellers before and after their Mongolia journey — breakfast, luggage storage and trip briefings.",
   });

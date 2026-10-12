@@ -32,7 +32,7 @@ export function IntroSection({ image }: { image: ImageAsset }) {
                 at your feet.
               </p>
               <p>
-                Eternal Sky Tour was founded in Ulaanbaatar to share this country the way we know it: slowly,
+                Dolgion’s Tour was founded in Ulaanbaatar to share this country the way we know it: slowly,
                 personally, and with the families who make it home. No crowds, no scripts — just the right
                 people, the right season and room to breathe.
               </p>

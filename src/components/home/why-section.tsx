@@ -18,7 +18,7 @@ interface WhySectionProps {
 export function WhySection({
   pillars,
   image,
-  eyebrow = "Why Eternal Sky",
+  eyebrow = "Why Dolgion’s Tour",
   title = "We travel the way our families always have — with time, and with respect.",
 }: WhySectionProps) {
   return (

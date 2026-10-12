@@ -30,7 +30,7 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
       <PageHero
         eyebrow="About us"
         title="Born under the same sky"
-        description="Eternal Sky Tour is a Mongolian company, run from Ulaanbaatar by people who grew up between the city and the steppe."
+        description="Dolgion’s Tour is a Mongolian company, run from Ulaanbaatar by people who grew up between the city and the steppe."
         image={images.aboutHero}
       />
 
@@ -45,7 +45,7 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
               <p>
                 Many of us have family in the countryside — herders in Arkhangai, eagle hunters in the Altai,
                 relatives who still move camp with the seasons. Showing visitors that world, honestly and on its own
-                terms, is why Eternal Sky exists.
+                terms, is why Dolgion’s Tour exists.
               </p>
               <p>
                 We keep groups small, work with the same families year after year, and pay them fairly. We plan

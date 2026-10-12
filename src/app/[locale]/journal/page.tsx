@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/journal"
     locale,
     path: routes.journal,
     title: "Travel Journal",
-    description: "Planning advice, packing lists and cultural stories about Mongolia from the Eternal Sky team.",
+    description: "Planning advice, packing lists and cultural stories about Mongolia from the Dolgion’s Tour team.",
   });
 }
 

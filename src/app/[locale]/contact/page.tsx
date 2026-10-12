@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/contact"
     locale,
     path: routes.contact,
     title: "Contact Us",
-    description: "Speak with a Mongolia-based travel planner about tours, private journeys and the Eternal Sky Guest House.",
+    description: "Speak with a Mongolia-based travel planner about tours, private journeys and the Dolgion’s Tour Guest House.",
   });
 }
 
@@ -27,6 +27,7 @@ export default async function ContactPage({ params, searchParams }: PageProps<"/
   const query = await searchParams;
   const tourSlug = firstParam(query.tour);
   const departureId = firstParam(query.departure);
+  const huntingInquiry = firstParam(query.experience) === "hunting-shooting";
 
   const [images, tours, selectedTour] = await Promise.all([
     getPageImages(),
@@ -55,7 +56,7 @@ export default async function ContactPage({ params, searchParams }: PageProps<"/
         <Container className="grid gap-16 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
             <h2 id="contact-form-title" className="font-display text-3xl font-light text-sky-950 sm:text-4xl">
-              {selectedTour ? `Enquire about ${selectedTour.title}` : "Send us an enquiry"}
+              {selectedTour ? `Enquire about ${selectedTour.title}` : huntingInquiry ? "Enquire about Hunting & Shooting" : "Send us an enquiry"}
             </h2>
             <p className="mt-5 leading-relaxed text-charcoal-600">
               Whether you have a tour in mind or just a feeling about Mongolia, we&apos;d love to hear from you.
@@ -85,6 +86,7 @@ export default async function ContactPage({ params, searchParams }: PageProps<"/
             <InquiryForm
               tours={tours.map((tour) => ({ value: tour.slug, label: tour.title }))}
               defaultTourSlug={selectedTour?.slug}
+              defaultMessage={huntingInquiry ? "I'm interested in the Hunting & Shooting countryside day trip. Please send available dates, group pricing and transport options." : undefined}
               departureLabel={departure ? formatDateRange(departure.startDate, departure.endDate) : undefined}
             />
           </Reveal>

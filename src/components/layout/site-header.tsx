@@ -67,7 +67,7 @@ export function SiteHeader({ primary, secondary }: SiteHeaderProps) {
         <div className="mx-auto flex h-20 max-w-[90rem] items-center justify-between gap-6 px-5 sm:px-8 lg:px-12">
           <Logo />
 
-          <nav aria-label="Main" className="hidden lg:block">
+          <nav aria-label="Main" className="hidden xl:block">
             <ul className="flex items-center gap-1 xl:gap-3">
               {primary.map((item) => (
                 <li key={item.href}>
@@ -110,7 +110,7 @@ export function SiteHeader({ primary, secondary }: SiteHeaderProps) {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               className={cn(
-                "inline-flex size-11 items-center justify-center rounded-full transition-colors lg:hidden",
+                "inline-flex size-11 items-center justify-center rounded-full transition-colors xl:hidden",
                 scrolled ? "hover:bg-sky-950/5" : "hover:bg-white/10",
               )}
             >

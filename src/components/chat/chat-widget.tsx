@@ -115,7 +115,7 @@ export function ChatWidget() {
         {open && (
           <motion.section
             id={panelId}
-            aria-label="Chat with Eternal Sky Tour"
+            aria-label="Chat with Dolgion’s Tour"
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.98 }}

@@ -13,11 +13,12 @@ interface InquiryFormProps {
   tours: SelectOption[];
   defaultTourSlug?: string;
   departureLabel?: string;
+  defaultMessage?: string;
 }
 
 type Status = { kind: "idle" } | { kind: "pending" } | { kind: "done"; message: string };
 
-export function InquiryForm({ tours, defaultTourSlug, departureLabel }: InquiryFormProps) {
+export function InquiryForm({ tours, defaultTourSlug, departureLabel, defaultMessage }: InquiryFormProps) {
   const uid = useId();
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
@@ -96,6 +97,7 @@ export function InquiryForm({ tours, defaultTourSlug, departureLabel }: InquiryF
         <TextArea
           id={`${uid}-message`}
           name="message"
+          defaultValue={defaultMessage}
           required
           placeholder="Who is travelling, what you'd love to see, any questions…"
         />
@@ -109,7 +111,7 @@ export function InquiryForm({ tours, defaultTourSlug, departureLabel }: InquiryF
           className="mt-1 size-5 shrink-0 cursor-pointer accent-sky-950"
         />
         <label htmlFor={`${uid}-consent`} className="text-sm text-charcoal-600">
-          I agree that Eternal Sky Tour may use these details to reply to my enquiry.
+          I agree that Dolgion’s Tour may use these details to reply to my enquiry.
         </label>
       </div>
       <div className="sm:col-span-2">

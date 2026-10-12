@@ -6,7 +6,7 @@ import type { ImageAsset } from "@/types/common";
  * Every photograph used on the site is declared here exactly once. Components
  * never reference "/images/..." paths directly; mock data references these
  * entries, and pages receive them through services. Replacing a photo (e.g.
- * with Eternal Sky's own photography) is a one-line change in this file.
+ * with Dolgion’s Tour's own photography) is a one-line change in this file.
  *
  * All current photos are openly licensed images from Wikimedia Commons,
  * self-hosted under /public/images. Attribution data is kept in `credit`
@@ -14,6 +14,18 @@ import type { ImageAsset } from "@/types/common";
  * attribution to stay visible while they are in use.
  */
 export const images = {
+  huntingMap: {
+    src: "/images/hunting/brochure-cover-map.jpg",
+    alt: "Mongol Target shooting and outdoor tour brochure with route map",
+    width: 1280,
+    height: 1403,
+  },
+  huntingProgram: {
+    src: "/images/hunting/brochure-program.jpg",
+    alt: "Original target shooting and countryside activities program brochure",
+    width: 1280,
+    height: 1403,
+  },
   gobiDunes: {
     src: "/images/gobi/khongoryn-els-dunes.jpg",
     alt: "Golden sand dunes of Khongoryn Els beneath the dark ridges of the Gobi-Altai range",

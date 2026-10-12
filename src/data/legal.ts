@@ -9,7 +9,7 @@ export const legalDocuments: Record<LegalDocument["id"], LegalDocument> = {
   "booking-terms": {
     id: "booking-terms",
     title: "Booking Terms",
-    summary: "The conditions that apply when you reserve a journey with Eternal Sky Tour.",
+    summary: "The conditions that apply when you reserve a journey with Dolgion’s Tour.",
     updatedAt: "2026-10-01",
     sections: [
       {

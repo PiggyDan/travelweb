@@ -9,7 +9,7 @@ import { api, ApiError } from "@/lib/api";
 import { usePoll } from "@/lib/use-poll";
 import { cn } from "@/lib/utils";
 import type { AdminSummary, AdminUser } from "@/types/chat";
-import logo from "../../../public/images/logo.png";
+import logo from "../../../public/images/dolgion-tour-logo.svg";
 
 interface AdminContextValue {
   admin: AdminUser;
@@ -80,7 +80,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
       <div className="flex min-h-svh flex-col lg:flex-row">
         <aside className="flex shrink-0 items-center gap-2 bg-sky-950 px-4 py-3 text-felt-50 lg:sticky lg:top-0 lg:h-svh lg:w-60 lg:flex-col lg:items-stretch lg:px-4 lg:py-6">
           <Link href="/admin" className="mr-2 shrink-0 lg:mr-0 lg:mb-8 lg:self-center">
-            <Image src={logo} alt="Eternal Sky Tour admin" className="h-10 w-auto lg:h-16" priority />
+            <Image src={logo} alt="Dolgion’s Tour admin" className="h-10 w-auto lg:h-16" priority />
           </Link>
           <nav aria-label="Admin" className="flex flex-1 gap-1 lg:flex-col">
             {NAV.map(({ href, label, icon: Icon, badge }) => (
