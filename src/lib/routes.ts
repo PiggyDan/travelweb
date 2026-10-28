@@ -25,6 +25,7 @@ export const routes = {
     `/contact?tour=${slug}${departureId ? `&departure=${departureId}` : ""}`,
   faq: "/faq",
   tripPlanner: "/trip-planner",
+  explore: "/explore",
   bookingTerms: "/booking-terms",
   privacy: "/privacy",
 } as const;
@@ -45,6 +46,7 @@ export const staticSitemapPaths: readonly string[] = [
   routes.contact,
   routes.faq,
   routes.tripPlanner,
+  routes.explore,
   routes.bookingTerms,
   routes.privacy,
 ];

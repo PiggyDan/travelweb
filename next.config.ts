@@ -6,6 +6,10 @@ const backendUrl = process.env.BACKEND_URL ?? "http://127.0.0.1:8000";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async headers() {
+    // Versioned files (scripts/copy-maplibre-worker.mjs) never change under the same name.
+    return [{ source: "/vendor/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] }];
+  },
   async rewrites() {
     return [{ source: "/api/:path*", destination: `${backendUrl}/api/:path*` }];
   },

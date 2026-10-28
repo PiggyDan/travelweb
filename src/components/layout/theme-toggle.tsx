@@ -20,9 +20,14 @@ function subscribe(onChange: () => void) {
 
 const isDark = () => document.documentElement.classList.contains("dark");
 
+/** Whether night mode is on; re-renders when the theme changes. */
+export function useDarkTheme(): boolean {
+  return useSyncExternalStore(subscribe, isDark, () => false);
+}
+
 /** Switches between day and night themes and remembers the choice. */
 export function ThemeToggle({ className }: { className?: string }) {
-  const dark = useSyncExternalStore(subscribe, isDark, () => false);
+  const dark = useDarkTheme();
 
   function toggle() {
     const next = !isDark();

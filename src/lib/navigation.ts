@@ -20,6 +20,7 @@ export const mainNavigation: readonly NavItem[] = [
 ];
 
 export const secondaryNavigation: readonly NavItem[] = [
+  { label: "World Map", href: routes.explore },
   { label: "Travel Info", href: routes.travelInformation },
   { label: "Festivals", href: routes.festivals },
   { label: "Gallery", href: routes.gallery },
@@ -34,6 +35,7 @@ export const footerNavigation: readonly NavGroup[] = [
     items: [
       { label: "Destinations", href: routes.destinations },
       { label: "Tours", href: routes.tours },
+      { label: "World Explorer", href: routes.explore },
       { label: "Private Tours", href: routes.toursByType("private") },
       { label: "Group Tours", href: routes.toursByType("group") },
       { label: "Custom Tours", href: routes.toursByType("custom") },

@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Search } from "lucide-react";
+import { Globe2, Menu, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { LocaleLink, useLocale } from "@/components/shared/locale-link";
@@ -96,6 +96,18 @@ export function SiteHeader({ primary, secondary }: SiteHeaderProps) {
             >
               <Search aria-hidden className="size-5" strokeWidth={1.5} />
             </button>
+            <LocaleLink
+              href={routes.explore}
+              aria-label="World map and route planner"
+              title="World map"
+              aria-current={isActive(routes.explore) ? "page" : undefined}
+              className={cn(
+                "hidden size-11 items-center justify-center rounded-full transition-colors sm:inline-flex",
+                scrolled ? "hover:bg-sky-950/5" : "hover:bg-white/10",
+              )}
+            >
+              <Globe2 aria-hidden className="size-5" strokeWidth={1.5} />
+            </LocaleLink>
             <ThemeToggle className={scrolled ? "hover:bg-sky-950/5" : "hover:bg-white/10"} />
             <LanguageSelector className="hidden sm:block" tone={scrolled ? "dark" : "light"} />
             <div className="ml-2 hidden md:block">

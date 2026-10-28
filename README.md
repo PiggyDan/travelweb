@@ -27,6 +27,50 @@ mock data (src/data)  →  services (src/services)  →  pages (src/app/[locale]
 - **SEO:** `lib/metadata.ts` (title template, canonical, hreflang, OG/Twitter), `lib/structured-data.ts` (JSON-LD),
   `app/sitemap.ts`, `app/robots.ts`.
 
+## World explorer (`/en/explore`)
+
+A full-screen world map (MapLibre GL JS) with place search and a multi-stop route planner. The route is kept in the
+URL (`?stops=…&modes=…`), so any route can be shared without an account. Mongolia is highlighted and our destinations
+are pinned on the map.
+
+```
+src/app/[locale]/explore/page.tsx      page (server) → components/explorer/explorer-loader.tsx (client-only)
+src/components/explorer/               map-view (MapLibre), place-search, route-panel, detail-panels, world-explorer
+src/app/api/geo/search/route.ts        GET place search  → services/geo/geocoder.ts
+src/app/api/geo/route/route.ts         GET one road leg  → services/geo/router.ts
+src/lib/explorer/                      geometry, URL encoding, formatting, EN/MN strings (messages.ts)
+public/geo/                            country facts + shapes, built by scripts/build-world-data.mjs
+```
+
+`/api/geo/*` are Next.js route handlers; they take precedence over the `/api/*` rewrite to the FastAPI backend, so the
+explorer works without the backend. API keys stay server-side.
+
+| Service | Used for | Key | Cost / limits |
+| --- | --- | --- | --- |
+| [OpenFreeMap](https://openfreemap.org) | Basemap tiles (light `positron`, dark `dark`) | none | Free, commercial use allowed, no request limits, **no SLA** |
+| [Photon](https://photon.komoot.io) (default) | Place search | none | Free fair-use public instance, no published quota or SLA; heavy use is throttled |
+| [openrouteservice](https://openrouteservice.org) | Driving / walking / cycling routes (and optional search) | `ORS_API_KEY` | Free Standard plan: 2,000 directions/day (40/min), 1,000 autocomplete/day |
+
+Flight legs are drawn locally as great-circle lines and labelled illustrative; no schedules, fares or flight times are
+shown. Without `ORS_API_KEY`, road legs say routing isn't configured instead of estimating anything.
+
+Environment variables (Vercel → Project → Settings → Environment Variables):
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `ORS_API_KEY` | — | Enables road routing. Server-side only; never prefix with `NEXT_PUBLIC_`. |
+| `GEOCODER_PROVIDER` | `photon` | `ors` to search with openrouteservice instead (uses the same key). |
+| `PHOTON_URL` | `https://photon.komoot.io` | Point at a self-hosted Photon instance. |
+| `NEXT_PUBLIC_MAP_STYLE_LIGHT` / `_DARK` | OpenFreeMap styles | Swap the basemap, e.g. a MapTiler style with a domain-restricted key. |
+
+Cost controls: search results are CDN-cached for a day and routes for a week (`Cache-Control: s-maxage`), the browser
+debounces and caches searches, and each IP is limited to 60 searches and 30 route requests per minute per server
+instance. For a hard global limit, add a Vercel Firewall rate-limit rule on `/api/geo/*`.
+
+MapLibre v6 loads its Web Worker from a URL, so `npm run dev` / `npm run build` first copy it to `public/vendor/`
+(`scripts/copy-maplibre-worker.mjs`, git-ignored). Regenerate the country data with the commands at the top of
+`scripts/build-world-data.mjs`. Unit tests: `npm test`.
+
 ## Placeholders to replace before launch
 
 - `src/lib/site-config.ts` — domain, email, phone, social URLs (or set `NEXT_PUBLIC_SITE_URL`)
